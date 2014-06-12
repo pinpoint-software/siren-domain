@@ -16,10 +16,10 @@ class Enum implements JsonSerializable
         $constList = $this->getConstList();
         if (is_null($initialValue)) {
             $this->value = $this::__DEFAULT;
-        } elseif (isset($constList[$initialValue])) {
-            $this->value = $initialValue;
-        } else {
+        } elseif (false === array_search($initialValue, $constList)) {
             throw new UnexpectedValueException('Value not a const in enum ' . get_class($this));
+        } else {
+            $this->value = $initialValue;
         }
     }
 

@@ -5,25 +5,25 @@ class FieldType extends Enum
 {
     const __DEFAULT = self::TEXT;
 
-    const HIDDEN = 'HIDDEN';
-    const TEXT = 'TEXT';
-    const SEARCH = 'SEARCH';
-    const TEL = 'TEL';
-    const URL = 'URL';
-    const EMAIL = 'EMAIL';
-    const PASSWORD = 'PASSWORD';
-    const DATETIME = 'DATETIME';
-    const DATE = 'DATE';
-    const MONTH = 'MONTH';
-    const WEEK = 'WEEK';
-    const TIME = 'TIME';
-    const DATETIME_LOCAL = 'DATETIME-LOCAL';
-    const NUMBER = 'NUMBER';
-    const RANGE = 'RANGE';
-    const COLOR = 'COLOR';
-    const CHECKBOX = 'CHECKBOX';
-    const RADIO = 'RADIO';
-    const FILE = 'FILE';
-    const IMAGE = 'IMAGE';
-    const BUTTON = 'BUTTON';
+    const HIDDEN = 'hidden';
+    const TEXT = 'text';
+    const SEARCH = 'search';
+    const TEL = 'tel';
+    const URL = 'url';
+    const EMAIL = 'email';
+    const PASSWORD = 'password';
+    const DATETIME = 'datetime';
+    const DATE = 'date';
+    const MONTH = 'month';
+    const WEEK = 'week';
+    const TIME = 'time';
+    const DATETIME_LOCAL = 'datetime-local';
+    const NUMBER = 'number';
+    const RANGE = 'range';
+    const COLOR = 'color';
+    const CHECKBOX = 'checkbox';
+    const RADIO = 'radio';
+    const FILE = 'file';
+    const IMAGE = 'image';
+    const BUTTON = 'button';
 }
