@@ -2,6 +2,7 @@
 namespace Pinpoint\Siren;
 
 use JsonSerializable;
+use RuntimeException;
 
 class Action implements JsonSerializable
 {
@@ -48,22 +49,26 @@ class Action implements JsonSerializable
 
     public function addField(Field $field)
     {
-        if (!isset($this->data['field'])) {
-            $this->data['field'] = array();
+        if (!isset($this->data['fields'])) {
+            $this->data['fields'] = array();
         }
 
-        $this->data['field'][] = $field;
+        $this->data['fields'][] = $field;
     }
 
     public function jsonSerialize()
     {
         if (!isset($this->data['name'])) {
+            // This won't actually work
+            // You'll get an \Exception with the message
+            // "Failed calling Pinpoint\Siren\Action::jsonSerialize()"
             throw new RuntimeException(
                 sprintf("%s requires name value", __CLASS__)
             );
         }
 
         if (!isset($this->data['href'])) {
+            // This also won't work, see above
             throw new RuntimeException(
                 sprintf("%s requires href value", __CLASS__)
             );
