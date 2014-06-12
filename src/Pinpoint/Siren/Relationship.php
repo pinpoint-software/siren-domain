@@ -2,6 +2,7 @@
 namespace Pinpoint\Siren;
 
 use JsonSerializable;
+use InvalidArgumentException;
 
 class Relationship implements JsonSerializable
 {
