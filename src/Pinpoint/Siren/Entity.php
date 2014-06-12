@@ -2,6 +2,7 @@
 namespace Pinpoint\Siren;
 
 use JsonSerializable;
+use InvalidArgumentException;
 
 class Entity implements JsonSerializable
 {
@@ -12,7 +13,7 @@ class Entity implements JsonSerializable
         $this->data = array();
     }
 
-    public function setRelationship(Relationship $rel)
+    public function setRel(Rel $rel)
     {
         $this->data['rel'] = $rel;
     }
@@ -55,23 +56,23 @@ class Entity implements JsonSerializable
         }
     }
 
-    public function addEntity(Relationship $rel, Entity $entity)
+    public function addEntity(Rel $rel, Entity $entity)
     {
         if (!isset($this->data['entity'])) {
             $this->data['entities'] = array();
         }
 
-        $entity->setRelationship($rel);
+        $entity->setRel($rel);
         $this->data['entities'][] = $entity;
     }
 
-    public function addEntityLink(Relationship $rel, EntityLink $entity)
+    public function addEntityLink(Rel $rel, EntityLink $entity)
     {
         if (!isset($this->data['entities'])) {
             $this->data['entities'] = array();
         }
 
-        $entity->setRelationship($rel);
+        $entity->setRel($rel);
         $this->data['entities'][] = $entity;
     }
 
@@ -84,7 +85,7 @@ class Entity implements JsonSerializable
         $this->data['actions'][] = $action;
     }
 
-    public function addLink(Relationship $rel, $href, $title = null)
+    public function addLink(Rel $rel, $href, $title = null)
     {
         if (!isset($this->data['link'])) {
             $this->data['links'] = array();

@@ -6,7 +6,7 @@ class EntityLinkTest extends \PHPUnit_Framework_TestCase
     public function testRelAndHrefJson()
     {
         $link = new EntityLink();
-        $link->setRelationship(new Relationship('self'));
+        $link->setRel(new Rel('self'));
         $link->setHref('http://api.x.io/orders/42');
         $expectedJson = json_encode(
             array(
@@ -29,14 +29,14 @@ class EntityLinkTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Exception');
         $link = new EntityLink();
-        $link->setRelationship(new Relationship('self'));
+        $link->setRel(new Rel('self'));
         json_encode($link);
     }
 
     public function testSingleClassJson()
     {
         $link = new EntityLink();
-        $link->setRelationship(new Relationship('self'));
+        $link->setRel(new Rel('self'));
         $link->setHref('http://api.x.io/orders/42');
         $link->addClass('order');
         $expectedJson = json_encode(
@@ -52,7 +52,7 @@ class EntityLinkTest extends \PHPUnit_Framework_TestCase
     public function testDoubleClassJson()
     {
         $link = new EntityLink();
-        $link->setRelationship(new Relationship('self'));
+        $link->setRel(new Rel('self'));
         $link->setHref('http://api.x.io/orders/42');
         $link->addClass('order');
         $link->addClass('info');

@@ -3,23 +3,23 @@ namespace Pinpoint\Siren;
 
 use InvalidArgumentException;
 
-class RelationshipTest extends \PHPUnit_Framework_TestCase
+class RelTest extends \PHPUnit_Framework_TestCase
 {
     public function testSingleRelJson()
     {
-        $rel = new Relationship('hoopla');
+        $rel = new Rel('hoopla');
         $this->assertEquals('["hoopla"]', json_encode($rel));
     }
 
     public function testDoubleRelJson()
     {
-        $rel = new Relationship('hoopla', 'ballyhoo');
+        $rel = new Rel('hoopla', 'ballyhoo');
         $this->assertEquals('["hoopla","ballyhoo"]', json_encode($rel));
     }
 
     public function testNumericRelJson()
     {
         $this->setExpectedException('InvalidArgumentException');
-        $rel = new Relationship(42);
+        $rel = new Rel(42);
     }
 }

@@ -13,7 +13,7 @@ class EntityLink implements JsonSerializable
         $this->data = array();
     }
 
-    public function setRelationship(Relationship $rel)
+    public function setRel(Rel $rel)
     {
         $this->data['rel'] = $rel;
     }
