@@ -1,0 +1,6 @@
+.DS_Store
+.fuse*
+build
+cache.properties
+vendor
+
