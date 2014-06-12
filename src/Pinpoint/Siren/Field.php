@@ -2,6 +2,7 @@
 namespace Pinpoint\Siren;
 
 use JsonSerializable;
+use RuntimeException;
 
 class Field implements JsonSerializable
 {
@@ -9,12 +10,7 @@ class Field implements JsonSerializable
 
     public function __construct()
     {
-        $this->data = array(
-            'name' => null,
-            'type' => 'text',
-            'value' => null,
-            'title' => null,
-        );
+        $this->data = array();
     }
 
     public function setName($name)
@@ -40,6 +36,9 @@ class Field implements JsonSerializable
     public function jsonSerialize()
     {
         if (!isset($this->data['name'])) {
+            // This won't actually work
+            // You'll get an \Exception with the message
+            // "Failed calling Pinpoint\Siren\Field::jsonSerialize()"
             throw new RuntimeException(
                 sprintf("%s requires name value", __CLASS__)
             );
@@ -47,10 +46,6 @@ class Field implements JsonSerializable
 
         if (!isset($this->data['type'])) {
             $this->data['type'] = new FieldType(FieldType::TEXT);
-        }
-
-        if (!isset($this->data['type']) && isset($this->data['fields'])) {
-            $this->data['type'] = 'application/x-www-form-urlencoded';
         }
 
         return $this->data;
