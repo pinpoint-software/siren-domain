@@ -5,16 +5,16 @@ use UnexpectedValueException;
 
 class FieldTypeTest extends \PHPUnit_Framework_TestCase
 {
-    public function testJsonText()
+    public function testJsonHidden()
     {
-        $fieldType = new FieldType(FieldType::TEXT);
-        $this->assertEquals('"TEXT"', json_encode($fieldType));
+        $fieldType = new FieldType(FieldType::HIDDEN);
+        $this->assertEquals('"HIDDEN"', json_encode($fieldType));
     }
 
-    public function testStringText()
+    public function testStringHidden()
     {
-        $fieldType = new FieldType(FieldType::TEXT);
-        $this->assertEquals('TEXT', $fieldType);
+        $fieldType = new FieldType(FieldType::HIDDEN);
+        $this->assertEquals('HIDDEN', $fieldType);
     }
 
     public function testDefault()
