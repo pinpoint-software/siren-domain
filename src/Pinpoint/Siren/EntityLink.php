@@ -1,7 +1,8 @@
 <?php
-namespace Pinpoint\Sirens;
+namespace Pinpoint\Siren;
 
 use JsonSerializable;
+use RuntimeException;
 
 class EntityLink implements JsonSerializable
 {
@@ -33,6 +34,15 @@ class EntityLink implements JsonSerializable
 
     public function jsonSerialize()
     {
+        if (!isset($this->data['rel'])) {
+            throw new RuntimeException(
+                sprintf(
+                    "%s requires rel value",
+                    __CLASS__
+                )
+            );
+        }
+
         if (!isset($this->data['href'])) {
             throw new RuntimeException(
                 sprintf(
