@@ -96,7 +96,7 @@ class Entity implements JsonSerializable
 
     public function addLink(Rel $rel, $href, $title = null)
     {
-        if (!isset($this->data['link'])) {
+        if (!isset($this->data['links'])) {
             $this->data['links'] = array();
         }
 

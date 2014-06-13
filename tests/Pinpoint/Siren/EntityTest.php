@@ -181,10 +181,8 @@ class EntityTest extends \PHPUnit_Framework_TestCase
 
     public function testLink()
     {
-        $rel = new Rel('self');
-
         $entity = new Entity();
-        $entity->addLink($rel, 'http://api.x.io/orders/42', 'Self Reference');
+        $entity->addLink(new Rel('self'), 'http://api.x.io/orders/42', 'Self Reference');
         $expectedJson = json_encode(
             array(
                 'links' => array(
@@ -192,6 +190,30 @@ class EntityTest extends \PHPUnit_Framework_TestCase
                         'rel' => array('self'),
                         'href' => 'http://api.x.io/orders/42',
                         'title' => 'Self Reference',
+                    ),
+                ),
+            )
+        );
+        $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($entity));
+    }
+
+    public function testMultipleLinks()
+    {
+        $entity = new Entity();
+        $entity->addLink(new Rel('self'), 'http://api.x.io/orders/42', 'Self Reference');
+        $entity->addLink(new Rel('next'), 'http://api.x.io/orders/43', 'Next Order');
+        $expectedJson = json_encode(
+            array(
+                'links' => array(
+                    array(
+                        'rel' => array('self'),
+                        'href' => 'http://api.x.io/orders/42',
+                        'title' => 'Self Reference',
+                    ),
+                    array(
+                        'rel' => array('next'),
+                        'href' => 'http://api.x.io/orders/43',
+                        'title' => 'Next Order',
                     ),
                 ),
             )
