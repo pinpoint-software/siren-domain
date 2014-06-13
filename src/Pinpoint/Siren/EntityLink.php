@@ -18,6 +18,15 @@ class EntityLink implements JsonSerializable
         $this->data['rel'] = $rel;
     }
 
+    public function setClass($class)
+    {
+        $this->data['class'] = array();
+        $classes = func_get_args();
+        foreach ($classes as $class) {
+            $this->addClass($class);
+        }
+    }
+
     public function addClass($class)
     {
         if (!isset($this->data['class'])) {

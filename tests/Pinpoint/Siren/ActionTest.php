@@ -3,7 +3,7 @@ namespace Pinpoint\Siren;
 
 class ActionTest extends \PHPUnit_Framework_TestCase
 {
-    public function testNameAndHrefJson()
+    public function testNameAndHref()
     {
         $action = new Action();
         $action->setName('add-item');
@@ -17,7 +17,7 @@ class ActionTest extends \PHPUnit_Framework_TestCase
         $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($action));
     }
 
-    public function testMissingNameJson()
+    public function testMissingName()
     {
         $this->setExpectedException('Exception');
         $action = new Action();
@@ -25,7 +25,7 @@ class ActionTest extends \PHPUnit_Framework_TestCase
         json_encode($action);
     }
 
-    public function testMissingHrefJson()
+    public function testMissingHref()
     {
         $this->setExpectedException('Exception');
         $action = new Action();
@@ -33,7 +33,7 @@ class ActionTest extends \PHPUnit_Framework_TestCase
         json_encode($action);
     }
 
-    public function testTitleJson()
+    public function testTitle()
     {
         $action = new Action();
         $action->setName('add-item');
@@ -49,7 +49,7 @@ class ActionTest extends \PHPUnit_Framework_TestCase
         $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($action));
     }
 
-    public function testSingleClassJson()
+    public function testSingleClass()
     {
         $action = new Action();
         $action->setName('add-item');
@@ -65,7 +65,7 @@ class ActionTest extends \PHPUnit_Framework_TestCase
         $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($action));
     }
 
-    public function testDoubleClassJson()
+    public function testDoubleClass()
     {
         $action = new Action();
         $action->setName('add-item');
@@ -82,7 +82,24 @@ class ActionTest extends \PHPUnit_Framework_TestCase
         $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($action));
     }
 
-    public function testMethodJson()
+    public function testSetClass()
+    {
+        $action = new Action();
+        $action->setName('add-item');
+        $action->setHref('http://api.x.io/orders/42/items');
+        $action->addClass('order');
+        $action->setClass('different', 'values');
+        $expectedJson = json_encode(
+            array(
+                'name' => 'add-item',
+                'href' => 'http://api.x.io/orders/42/items',
+                'class' => array('different', 'values'),
+            )
+        );
+        $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($action));
+    }
+
+    public function testMethod()
     {
         $action = new Action();
         $action->setName('add-item');
@@ -98,7 +115,7 @@ class ActionTest extends \PHPUnit_Framework_TestCase
         $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($action));
     }
 
-    public function testTypeJson()
+    public function testType()
     {
         $action = new Action();
         $action->setName('add-item');
@@ -114,7 +131,7 @@ class ActionTest extends \PHPUnit_Framework_TestCase
         $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($action));
     }
 
-    public function testFieldJson()
+    public function testField()
     {
         $field = new Field();
         $field->setName('orderNumber');

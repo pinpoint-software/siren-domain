@@ -5,13 +5,26 @@ use InvalidArgumentException;
 
 class EntityTest extends \PHPUnit_Framework_TestCase
 {
-    public function testClass()
+    public function testAddClass()
     {
         $entity = new Entity();
         $entity->addClass('order');
         $expectedJson = json_encode(
             array(
                 'class' => array('order'),
+            )
+        );
+        $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($entity));
+    }
+
+    public function testSetClass()
+    {
+        $entity = new Entity();
+        $entity->addClass('order');
+        $entity->setClass('different', 'values');
+        $expectedJson = json_encode(
+            array(
+                'class' => array('different', 'values'),
             )
         );
         $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($entity));
