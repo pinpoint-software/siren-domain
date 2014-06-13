@@ -67,7 +67,7 @@ class Entity implements JsonSerializable
 
     public function addEntity(Rel $rel, Entity $entity)
     {
-        if (!isset($this->data['entity'])) {
+        if (!isset($this->data['entities'])) {
             $this->data['entities'] = array();
         }
 

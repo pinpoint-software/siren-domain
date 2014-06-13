@@ -87,6 +87,51 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($entity));
     }
 
+    public function testMultipleSubEntities()
+    {
+        $orderItemsRel = new Rel('http://x.io/rels/order-items');
+        $orderItems = new EntityLink();
+        $orderItems->setClass('items', 'collection');
+        $orderItems->setHref('http://api.x.io/orders/42/items');
+
+        $customerRel = new Rel('http://x.io/rels/customer');
+        $customer = new Entity();
+        $customer->setClass('info', 'customer');
+        $customer->setProperty('customerId', 'pj123');
+        $customer->setProperty('name', 'Peter Joseph');
+        $customer->addLink(new Rel('self'), 'http://api.x.io/customers/pj123');
+
+        $entity = new Entity();
+        $entity->addEntityLink($orderItemsRel, $orderItems);
+        $entity->addEntity($customerRel, $customer);
+        $expectedJson = json_encode(
+            array(
+                'entities' => array(
+                    array(
+                        'class' => array('items', 'collection'),
+                        'rel' => array('http://x.io/rels/order-items'),
+                        'href' => 'http://api.x.io/orders/42/items',
+                    ),
+                    array(
+                        'class' => array('info', 'customer'),
+                        'rel' => array('http://x.io/rels/customer'),
+                        'properties' => array(
+                            'customerId' => 'pj123',
+                            'name' => 'Peter Joseph',
+                        ),
+                        'links' => array(
+                            array(
+                                'rel' => array('self'),
+                                'href' => 'http://api.x.io/customers/pj123',
+                            ),
+                        ),
+                    ),
+                ),
+            )
+        );
+        $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($entity));
+    }
+
     public function testEntityLink()
     {
         $rel = new Rel('http://x.io/rels/order-items');
