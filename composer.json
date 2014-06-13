@@ -1,6 +1,7 @@
 {
     "name": "pinpoint-software/siren-domain",
     "description": "Library to render siren entities",
+    "keywords": ["siren", "hypermedia"],
     "license": "MIT",
     "authors": [
         {
@@ -9,6 +10,7 @@
         }
     ],
     "require": {
+	   "php": ">=5.4.0"
     },
     "require-dev": {
         "covex-nn/phpcb": "1.0.*",
