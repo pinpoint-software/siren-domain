@@ -1,5 +1,5 @@
 before_commands:
-    - "composer install --prefer-source"
+    - "composer install --no-dev --prefer-source"
 tools:
     php_code_sniffer: 
         enabled: true

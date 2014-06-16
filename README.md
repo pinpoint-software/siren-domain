@@ -1,5 +1,8 @@
-Siren Domain [![Build Status](https://travis-ci.org/pinpoint-software/siren-domain.svg?branch=master)](https://travis-ci.org/pinpoint-software/siren-domain)
+Siren Domain
 ============
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/pinpoint-software/siren-domain/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/pinpoint-software/siren-domain/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/pinpoint-software/siren-domain/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/pinpoint-software/siren-domain/?branch=master)
+[![Build Status](https://travis-ci.org/pinpoint-software/siren-domain.svg?branch=master)](https://travis-ci.org/pinpoint-software/siren-domain)
 
 *Siren Domain* is a library that can be used to easily build and render siren entities.
 
