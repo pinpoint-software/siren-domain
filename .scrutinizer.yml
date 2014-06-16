@@ -1,5 +1,8 @@
 tools:
-    php_code_sniffer: true
+    php_code_sniffer: 
+        enabled: true
+        filter:
+            paths: ["src/*", "tests/*"]
         config:
             standard: "PSR2"
     php_code_coverage:
