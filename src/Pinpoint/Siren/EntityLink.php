@@ -8,9 +8,11 @@ class EntityLink implements JsonSerializable
 {
     protected $data;
 
-    public function __construct()
+    public function __construct($href)
     {
         $this->data = array();
+
+        $this->setHref($href);
     }
 
     public function setRel(Rel $rel)
@@ -43,24 +45,6 @@ class EntityLink implements JsonSerializable
 
     public function jsonSerialize()
     {
-        if (!isset($this->data['rel'])) {
-            throw new RuntimeException(
-                sprintf(
-                    "%s requires rel value",
-                    __CLASS__
-                )
-            );
-        }
-
-        if (!isset($this->data['href'])) {
-            throw new RuntimeException(
-                sprintf(
-                    "%s requires href value",
-                    __CLASS__
-                )
-            );
-        }
-
         return $this->data;
     }
 }

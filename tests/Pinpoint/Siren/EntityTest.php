@@ -90,9 +90,8 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     public function testMultipleSubEntities()
     {
         $orderItemsRel = new Rel('http://x.io/rels/order-items');
-        $orderItems = new EntityLink();
+        $orderItems = new EntityLink('http://api.x.io/orders/42/items');
         $orderItems->setClass('items', 'collection');
-        $orderItems->setHref('http://api.x.io/orders/42/items');
 
         $customerRel = new Rel('http://x.io/rels/customer');
         $customer = new Entity();
@@ -135,10 +134,9 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     public function testEntityLink()
     {
         $rel = new Rel('http://x.io/rels/order-items');
-        $subEntity = new EntityLink();
+        $subEntity = new EntityLink('http://api.x.io/orders/42/items');
         $subEntity->addClass('items');
         $subEntity->addClass('collection');
-        $subEntity->setHref('http://api.x.io/orders/42/items');
 
         $entity = new Entity();
         $entity->addEntityLink($rel, $subEntity);
@@ -158,10 +156,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
 
     public function testAction()
     {
-        $action = new Action();
-        $action->setName('add-item');
-        $action->setMethod(new Method(Method::POST));
-        $action->setHref('http://api.x.io/orders/42/items');
+        $action = new Action('add-item', 'http://api.x.io/orders/42/items', new Method(Method::POST));
 
         $entity = new Entity();
         $entity->addAction($action);

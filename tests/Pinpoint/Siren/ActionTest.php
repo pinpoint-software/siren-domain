@@ -5,44 +5,26 @@ class ActionTest extends \PHPUnit_Framework_TestCase
 {
     public function testNameAndHref()
     {
-        $action = new Action();
-        $action->setName('add-item');
-        $action->setHref('http://api.x.io/orders/42/items');
+        $action = new Action('add-item', 'http://api.x.io/orders/42/items');
         $expectedJson = json_encode(
             array(
                 'name' => 'add-item',
                 'href' => 'http://api.x.io/orders/42/items',
+                'method' => 'GET',
             )
         );
         $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($action));
     }
 
-    public function testMissingName()
-    {
-        $this->setExpectedException('Exception');
-        $action = new Action();
-        $action->setHref('http://api.x.io/orders/42/items');
-        json_encode($action);
-    }
-
-    public function testMissingHref()
-    {
-        $this->setExpectedException('Exception');
-        $action = new Action();
-        $action->setName('add-item');
-        json_encode($action);
-    }
-
     public function testTitle()
     {
-        $action = new Action();
-        $action->setName('add-item');
-        $action->setHref('http://api.x.io/orders/42/items');
+        $action = new Action('add-item', 'http://api.x.io/orders/42/items');
         $action->setTitle('Add Item');
         $expectedJson = json_encode(
             array(
                 'name' => 'add-item',
                 'href' => 'http://api.x.io/orders/42/items',
+                'method' => 'GET',
                 'title' => 'Add Item',
             )
         );
@@ -51,14 +33,13 @@ class ActionTest extends \PHPUnit_Framework_TestCase
 
     public function testSingleClass()
     {
-        $action = new Action();
-        $action->setName('add-item');
-        $action->setHref('http://api.x.io/orders/42/items');
+        $action = new Action('add-item', 'http://api.x.io/orders/42/items');
         $action->addClass('hoopla');
         $expectedJson = json_encode(
             array(
                 'name' => 'add-item',
                 'href' => 'http://api.x.io/orders/42/items',
+                'method' => 'GET',
                 'class' => array('hoopla'),
             )
         );
@@ -67,15 +48,14 @@ class ActionTest extends \PHPUnit_Framework_TestCase
 
     public function testDoubleClass()
     {
-        $action = new Action();
-        $action->setName('add-item');
-        $action->setHref('http://api.x.io/orders/42/items');
+        $action = new Action('add-item', 'http://api.x.io/orders/42/items');
         $action->addClass('hoopla');
         $action->addClass('ballyhoo');
         $expectedJson = json_encode(
             array(
                 'name' => 'add-item',
                 'href' => 'http://api.x.io/orders/42/items',
+                'method' => 'GET',
                 'class' => array('hoopla', 'ballyhoo'),
             )
         );
@@ -84,15 +64,14 @@ class ActionTest extends \PHPUnit_Framework_TestCase
 
     public function testSetClass()
     {
-        $action = new Action();
-        $action->setName('add-item');
-        $action->setHref('http://api.x.io/orders/42/items');
+        $action = new Action('add-item', 'http://api.x.io/orders/42/items');
         $action->addClass('order');
         $action->setClass('different', 'values');
         $expectedJson = json_encode(
             array(
                 'name' => 'add-item',
                 'href' => 'http://api.x.io/orders/42/items',
+                'method' => 'GET',
                 'class' => array('different', 'values'),
             )
         );
@@ -101,10 +80,7 @@ class ActionTest extends \PHPUnit_Framework_TestCase
 
     public function testMethod()
     {
-        $action = new Action();
-        $action->setName('add-item');
-        $action->setHref('http://api.x.io/orders/42/items');
-        $action->setMethod(new Method(Method::POST));
+        $action = new Action('add-item', 'http://api.x.io/orders/42/items', new Method(Method::POST));
         $expectedJson = json_encode(
             array(
                 'name' => 'add-item',
@@ -117,14 +93,13 @@ class ActionTest extends \PHPUnit_Framework_TestCase
 
     public function testType()
     {
-        $action = new Action();
-        $action->setName('add-item');
-        $action->setHref('http://api.x.io/orders/42/items');
+        $action = new Action('add-item', 'http://api.x.io/orders/42/items');
         $action->setType('text/plain');
         $expectedJson = json_encode(
             array(
                 'name' => 'add-item',
                 'href' => 'http://api.x.io/orders/42/items',
+                'method' => 'GET',
                 'type' => 'text/plain',
             )
         );
@@ -133,17 +108,15 @@ class ActionTest extends \PHPUnit_Framework_TestCase
 
     public function testField()
     {
-        $field = new Field();
-        $field->setName('orderNumber');
+        $field = new Field('orderNumber');
 
-        $action = new Action();
-        $action->setName('add-item');
-        $action->setHref('http://api.x.io/orders/42/items');
+        $action = new Action('add-item', 'http://api.x.io/orders/42/items');
         $action->addField($field);
         $expectedJson = json_encode(
             array(
                 'name' => 'add-item',
                 'href' => 'http://api.x.io/orders/42/items',
+                'method' => 'GET',
                 'type' => 'application/x-www-form-urlencoded',
                 'fields' => array(
                     array(

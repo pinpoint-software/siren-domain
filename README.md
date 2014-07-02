@@ -29,9 +29,8 @@ use Pinpoint\Siren\Method;
 use Pinpoint\Siren\Rel;
 
 $orderItemsRel = new Rel('http://x.io/rels/order-items');
-$orderItems = new EntityLink();
+$orderItems = new EntityLink('http://api.x.io/orders/42/items');
 $orderItems->setClass('items', 'collection');
-$orderItems->setHref('http://api.x.io/orders/42/items');
 
 $customerRel = new Rel('http://x.io/rels/customer');
 $customer = new Entity();
@@ -40,23 +39,15 @@ $customer->setProperty('customerId', 'pj123');
 $customer->setProperty('name', 'Peter Joseph');
 $customer->addLink(new Rel('self'), 'http://api.x.io/customers/pj123');
 
-$orderNumberField = new Field();
-$orderNumberField->setName('orderNumber');
-$orderNumberField->setType(new FieldType(FieldType::HIDDEN));
+$orderNumberField = new Field('orderNumber', FieldType::HIDDEN());
 $orderNumberField->setValue('42');
 
-$productCodeField = new Field();
-$productCodeField->setName('productCode');
+$productCodeField = new Field('productCode');
 
-$quantityField = new Field();
-$quantityField->setName('quantity');
-$quantityField->setType(new FieldType(FieldType::NUMBER));
+$quantityField = new Field('quantity', FieldType::NUMBER());
 
-$addItem = new Action();
-$addItem->setName('add-item');
+$addItem = new Action('add-item', 'http://api.x.io/orders/42/items', Method::POST());
 $addItem->setTitle('Add Item');
-$addItem->setMethod(new Method(Method::POST));
-$addItem->setHref('http://api.x.io/orders/42/items');
 $addItem->setType('application/x-www-form-urlencoded');
 $addItem->addField($orderNumberField);
 $addItem->addField($productCodeField);
@@ -91,11 +82,11 @@ will generate:
     },
     "entities": [
         {
+            "href": "http:\/\/api.x.io\/orders\/42\/items",
             "class": [
                 "items",
                 "collection"
             ],
-            "href": "http:\/\/api.x.io\/orders\/42\/items",
             "rel": [
                 "http:\/\/x.io\/rels\/order-items"
             ]
@@ -125,9 +116,9 @@ will generate:
     "actions": [
         {
             "name": "add-item",
-            "title": "Add Item",
-            "method": "POST",
             "href": "http:\/\/api.x.io\/orders\/42\/items",
+            "method": "POST",
+            "title": "Add Item",
             "type": "application\/x-www-form-urlencoded",
             "fields": [
                 {

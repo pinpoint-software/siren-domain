@@ -8,9 +8,15 @@ class Field implements JsonSerializable
 {
     protected $data;
 
-    public function __construct()
+    public function __construct($name, FieldType $type = null)
     {
         $this->data = array();
+
+        $this->setName($name);
+        if (is_null($type)) {
+            $type = new FieldType(FieldType::TEXT);
+        }
+        $this->setType($type);
     }
 
     public function setName($name)
@@ -35,19 +41,6 @@ class Field implements JsonSerializable
 
     public function jsonSerialize()
     {
-        if (!isset($this->data['name'])) {
-            // This won't actually work
-            // You'll get an \Exception with the message
-            // "Failed calling Pinpoint\Siren\Field::jsonSerialize()"
-            throw new RuntimeException(
-                sprintf("%s requires name value", __CLASS__)
-            );
-        }
-
-        if (!isset($this->data['type'])) {
-            $this->data['type'] = new FieldType(FieldType::TEXT);
-        }
-
         return $this->data;
     }
 }

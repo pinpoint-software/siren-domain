@@ -8,9 +8,15 @@ class Action implements JsonSerializable
 {
     protected $data;
 
-    public function __construct()
+    public function __construct($name, $href, Method $method = null)
     {
         $this->data = array();
+        $this->setName($name);
+        $this->setHref($href);
+        if (is_null($method)) {
+            $method = new Method(Method::GET);
+        }
+        $this->setMethod($method);
     }
 
     public function setName($name)
@@ -67,22 +73,6 @@ class Action implements JsonSerializable
 
     public function jsonSerialize()
     {
-        if (!isset($this->data['name'])) {
-            // This won't actually work
-            // You'll get an \Exception with the message
-            // "Failed calling Pinpoint\Siren\Action::jsonSerialize()"
-            throw new RuntimeException(
-                sprintf("%s requires name value", __CLASS__)
-            );
-        }
-
-        if (!isset($this->data['href'])) {
-            // This also won't work, see above
-            throw new RuntimeException(
-                sprintf("%s requires href value", __CLASS__)
-            );
-        }
-
         if (!isset($this->data['type']) && isset($this->data['fields'])) {
             $this->data['type'] = 'application/x-www-form-urlencoded';
         }

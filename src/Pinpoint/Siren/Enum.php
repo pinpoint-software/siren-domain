@@ -42,4 +42,12 @@ class Enum implements JsonSerializable
     {
         return $this->value;
     }
+
+    public static function __callStatic($name, $arguments)
+    {
+        if (defined('static::' . $name)) {
+            return new static(constant('static::' . $name));
+        }
+        throw new UnexpectedValueException('Value not a const in enum ' . get_called_class());
+    }
 }
