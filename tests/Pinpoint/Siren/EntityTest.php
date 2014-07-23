@@ -37,7 +37,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $entity->addClass(42);
     }
 
-    public function testProperty()
+    public function testScalarProperty()
     {
         $entity = new Entity();
         $entity->setProperty('orderNumber', 42);
@@ -51,6 +51,20 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($entity));
     }
 
+    public function testArrayProperty()
+    {
+        $entity = new Entity();
+        $entity->setProperty('orderNumber', array(42));
+        $expectedJson = json_encode(
+            array(
+                'properties' => array(
+                    'orderNumber' => [42],
+                ),
+            )
+        );
+        $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($entity));
+    }
+
     public function testNonStringPropertyKey()
     {
         $this->setExpectedException('InvalidArgumentException');
@@ -58,11 +72,11 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $entity->setProperty(42, 42);
     }
 
-    public function testNonScalarPropertyValue()
+    public function testObjectPropertyValue()
     {
         $this->setExpectedException('InvalidArgumentException');
         $entity = new Entity();
-        $entity->setProperty('orderNumber', array(42));
+        $entity->setProperty('orderNumber', new \StdClass());
     }
 
     public function testSubEntity()
