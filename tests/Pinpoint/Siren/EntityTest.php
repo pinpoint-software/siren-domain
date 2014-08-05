@@ -65,6 +65,36 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($entity));
     }
 
+    public function testJsonSerializableProperty()
+    {
+        $jsonSerializableObject = $this->getMock('JsonSerializable');
+        $jsonSerializableObject
+            ->expects($this->any())
+            ->method('jsonSerialize')
+            ->will($this->returnValue('foo'));
+
+        $entity = new Entity();
+        $entity->setProperty('orderNumber', $jsonSerializableObject);
+        $expectedJson = json_encode(
+            array(
+                'properties' => array(
+                    'orderNumber' => 'foo',
+                ),
+            )
+        );
+        $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($entity));
+    }
+
+    public function testNonJsonSerializableProperty()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $nonJsonSerializableObject = new \StdClass();
+
+        $entity = new Entity();
+        $entity->setProperty('orderNumber', $nonJsonSerializableObject);
+    }
+
     public function testNonStringPropertyKey()
     {
         $this->setExpectedException('InvalidArgumentException');
