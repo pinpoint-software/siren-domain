@@ -1,16 +1,13 @@
 before_commands:
     - "composer install --no-dev --prefer-source"
 tools:
+    external_code_coverage: true
     php_code_sniffer: 
         enabled: true
         filter:
             paths: ["src/*", "tests/*"]
         config:
             standard: "PSR2"
-    php_code_coverage:
-        test_command: "phpunit"
-        filter:
-            paths: ["src/*"]
     php_sim:
         enabled: true
         filter:
