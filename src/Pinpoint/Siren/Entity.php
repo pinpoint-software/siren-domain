@@ -56,6 +56,8 @@ class Entity implements JsonSerializable
             $this->data['properties'][$key] = $value;
         } elseif (is_string($key) && is_array($value)) {
             $this->data['properties'][$key] = $value;
+        } elseif (is_string($key) && $value instanceof JsonSerializable) {
+            $this->data['properties'][$key] = $value;
         } else {
             throw new InvalidArgumentException(
                 sprintf(
